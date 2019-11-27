@@ -1,5 +1,5 @@
 const fs = require('fs')
-const parh = require('path')
+const path = require('path')
 const webpack = require('webpack')
 
 module.exports = {
@@ -14,22 +14,22 @@ module.exports = {
    * entries 收集了多目录个入口文件，并且每个入口还引入了一个用于热更新的文件
    * entries 是一个对象，key 为目录名
    */
-  entry: fs.readdirSync(__dirname).reduce((entires,dir) => {
-    const fullDir = parh.join(__dirname,dir)
-    const entry = parh.join(fullDir,'app.ts')
-    if(fs.statSync(fullDir).isDirectory() && fs.existsSync(entires)){
-      entires[dir] = ['webpack-hot-middleware', entry]
+  entry: fs.readdirSync(__dirname).reduce((entries, dir) => {
+    const fullDir = path.join(__dirname, dir)
+    const entry = path.join(fullDir, 'app.ts')
+    if (fs.statSync(fullDir).isDirectory() && fs.existsSync(entry)) {
+      entries[dir] = ['webpack-hot-middleware/client', entry]
     }
 
-    return entires
-  },{}),
+    return entries
+  }, {}),
 
   /**
    * 根据不同的目录名称，打包生成目标 js，名称和目录名一致
    */
 
   output: {
-    path: parh.join(__dirname, '__build__'),
+    path: path.join(__dirname, '__build__'),
     filename: '[name].js',
     publicPath: '/__build__/'
   },
@@ -46,7 +46,7 @@ module.exports = {
         ]
       },
       {
-        test: /\.tsx$/,
+        test: /\.tsx?$/,
         use: [
           {
             loader: 'ts-loader',
