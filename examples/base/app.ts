@@ -88,6 +88,20 @@ axios({
     a: 1,
     b: 2
   }
+}).then(res => {
+  console.log(res)
+})
+
+axios({
+  method: 'post',
+  url: '/base/post',
+  data: {
+    a: 3,
+    b: 4
+  },
+  responseType:'json'
+}).then(res => {
+  console.log(res)
 })
 
 axios({
