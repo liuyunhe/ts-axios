@@ -35,6 +35,7 @@ function transformHeaders(config: AxiosRequestConfig): any {
   return processHeaders(headers, data)
 }
 
+// 处理相应数据
 function transformResponseData(res: AxiosResponse): AxiosResponse {
   res.data = transformResponse(res.data)
   return res
