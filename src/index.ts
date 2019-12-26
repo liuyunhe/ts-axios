@@ -4,9 +4,11 @@ import { buildUrl } from './helpers/url'
 import { transformRequest, transformResponse } from './helpers/data'
 import { processHeaders } from './helpers/headers'
 
+// 主函数
 function axios(config: AxiosRequestConfig): AxiosPromise {
   processConfig(config)
   return xhr(config).then(res => {
+    // response.data转换
     return transformResponseData(res)
   })
 }
@@ -35,7 +37,7 @@ function transformHeaders(config: AxiosRequestConfig): any {
   return processHeaders(headers, data)
 }
 
-// 处理相应数据
+// 处理response.data数据
 function transformResponseData(res: AxiosResponse): AxiosResponse {
   res.data = transformResponse(res.data)
   return res

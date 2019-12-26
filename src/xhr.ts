@@ -7,16 +7,20 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
 
     const request = new XMLHttpRequest()
 
+    // 设置响应类型
     if (responseType) {
       request.responseType = responseType
     }
 
+    // 设置超时
     if (timeout) {
       request.timeout = timeout
     }
 
+    // 建立请求
     request.open(method.toUpperCase(), url, true)
 
+    // 判断响应状态
     request.onreadystatechange = function handleLoad() {
       if (request.readyState !== 4) return
       if (request.status === 0) return
@@ -41,6 +45,7 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
       reject(new Error(`Timeout of ${timeout} ms exceeded!`))
     }
 
+    // 处理content-type
     Object.keys(headers).forEach(name => {
       if (data === null && name.toLowerCase() === 'content-type') {
         delete headers[name]
@@ -51,6 +56,7 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
 
     request.send(data)
 
+    // 处理响应
     function handleResponse(response: AxiosResponse): void {
       if (response.status >= 200 && response.status < 300) {
         resolve(response)
