@@ -1,44 +1,31 @@
-import axios, { AxiosError } from '../../src/index'
+import axios from '../../src/index'
 
 axios({
-  method: 'get',
-  url: '/error/get1'
-}).then((res) => {
-  console.log(res)
-}).catch((e) => {
-  console.log(e)
+  url: '/extend/post',
+  method: 'post',
+  data: {
+    msg: 'hi'
+  }
 })
 
-axios({
-  method: 'get',
-  url: '/error/get'
-}).then((res) => {
-  console.log(res)
-}).catch((e) => {
-  console.log(e)
+axios.request({
+  url: '/extend/post',
+  method: 'post',
+  data: {
+    msg: 'hello'
+  }
 })
 
-setTimeout(() => {
-  axios({
-    method: 'get',
-    url: '/error/get'
-  }).then((res) => {
-    console.log(res)
-  }).catch((e) => {
-    console.log(e)
-  })
-}, 5000)
+axios.get('/extend/get')
 
-axios({
-  method: 'get',
-  url: '/error/timeout',
-  timeout: 2000
-}).then((res) => {
-  console.log(res)
-}).catch((e:AxiosError) => {
-  console.log(e.message)
-  console.log(e.config)
-  console.log(e.code)
-  console.log(e.request)
-  console.log(e.isAxiosError)
-})
+axios.options('/extend/options')
+
+axios.delete('/extend/delete')
+
+axios.head('/extend/head')
+
+axios.post('/extend/post', { msg: 'post' })
+
+axios.put('/extend/put', { msg: 'put' })
+
+axios.patch('/extend/patch', { msg: 'patch' })
